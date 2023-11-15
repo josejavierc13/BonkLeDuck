@@ -8,15 +8,19 @@ import java.awt.image.BufferedImage;
 
 
 public class Main extends JFrame {
-    private Image grassImage;
-    public Image Ducky;
-    public int circlex;
-    public int circley;
+    private final Image grassImage;
+    public int CircleX;
+    public int CircleY;
+    public int buttonCordX;
+    public int buttonCordY;
+
+
 
     public Main() {
         setTitle("BONK LE DUCK");
         setSize(800, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
 
         try {
             grassImage = ImageIO.read(new File("C:\\Users\\josej\\IdeaProjects\\BonkLeDuck\\IMAGES\\Grass_image.jpg"));
@@ -29,7 +33,7 @@ public class Main extends JFrame {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 drawPond(g);
-                ducky(circlex,circley,g);
+                ducky(CircleX, CircleY,g);
 
             }
         };
@@ -55,8 +59,8 @@ public class Main extends JFrame {
         g.setColor(new Color(10,  180, 255));
         g.fillOval(circleX, circleY, circleDiameter, circleDiameter);
 
-        this.circlex = circleX;
-        this.circley = circleY;
+        this.CircleX = circleX;
+        this.CircleY = circleY;
     }
     private void ducky(int circleX, int circleY, Graphics g){
         Random rand = new Random();
@@ -64,6 +68,7 @@ public class Main extends JFrame {
         int randCoordinatesX = rand.nextInt(2000);
         int randCoordinatesY = rand.nextInt(2000);
         System.out.println(randCoordinatesX);
+        System.out.println(randCoordinatesY);
 
 
         try {
@@ -76,7 +81,9 @@ public class Main extends JFrame {
 
     }
 
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Main::new);
+
     }
 }
