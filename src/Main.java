@@ -1,14 +1,10 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 import java.util.Random;
-import java.awt.image.BufferedImage;
 
 
 public class Main  {
@@ -70,24 +66,34 @@ public class Main  {
         this.CircleX = circleX;
         this.CircleY = circleY;
     }
+
+
+
+
+
+
+
+
     private void ducky(int circleX, int circleY, Graphics g) {
         Random rand = new Random();
 
-        int randCoordinatesX = rand.nextInt(500);
-        int randCoordinatesY = rand.nextInt(500);
+        int randCoordinatesX = rand.nextInt(300);
+        int randCoordinatesY = rand.nextInt(300);
         System.out.println(randCoordinatesX);
         // System.out.println(randCoordinatesY);
 
 
         ImageIcon icon = new ImageIcon("C:\\Users\\josej\\IdeaProjects\\BonkLeDuck\\IMAGES\\DUCK.png");
         Image image = icon.getImage(); // transform it
-        Image newimg = image.getScaledInstance(120, 120,  java.awt.Image.SCALE_SMOOTH);
+        Image newimg = image.getScaledInstance(80, 80,  java.awt.Image.SCALE_SMOOTH);
         icon = new ImageIcon(newimg);
         JButton Button = new JButton(icon);
+        Button.setBackground(new Color(10,  180, 255));
+        Button.setBorderPainted(false);
         mainFrame.add(Button);
 
 
-        Button.setBounds(randCoordinatesX + 220, randCoordinatesY + 220, 100, 100);
+        Button.setBounds(randCoordinatesX + 220, randCoordinatesY + 220, 60, 70);
         Button.addActionListener(e -> {
             Container parent = Button.getParent();
             parent.remove(Button);
