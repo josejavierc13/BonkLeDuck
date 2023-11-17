@@ -85,15 +85,16 @@ public class Main  {
 
         ImageIcon icon = new ImageIcon("C:\\Users\\josej\\IdeaProjects\\BonkLeDuck\\IMAGES\\DUCK.png");
         Image image = icon.getImage(); // transform it
-        Image newimg = image.getScaledInstance(80, 80,  java.awt.Image.SCALE_SMOOTH);
-        icon = new ImageIcon(newimg);
+        Image newImg = image.getScaledInstance(80, 80,  java.awt.Image.SCALE_SMOOTH);
+        icon = new ImageIcon(newImg);
         JButton Button = new JButton(icon);
         Button.setBackground(new Color(10,  180, 255));
         Button.setBorderPainted(false);
         mainFrame.add(Button);
 
 
-        Button.setBounds(randCoordinatesX + 220, randCoordinatesY + 220, 60, 70);
+
+        Button.setBounds(randCoordinatesX + 220, randCoordinatesY + 220, 60, 80);
         Button.addActionListener(e -> {
             Container parent = Button.getParent();
             parent.remove(Button);
