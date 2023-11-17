@@ -1,10 +1,15 @@
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import java.util.Random;
+
+
 
 
 public class Main  {
@@ -16,12 +21,17 @@ public class Main  {
 
 
 
+
     public Main() {
 
         mainFrame.setTitle("BONK LE DUCK");
         mainFrame.setSize(800, 800);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setResizable(false);
+        mainFrame.setBounds(500,125,800,800);
+
+
+
 
         try {
             grassImage = ImageIO.read(new File("C:\\Users\\josej\\IdeaProjects\\BonkLeDuck\\IMAGES\\Grass_image.jpg"));
@@ -40,10 +50,20 @@ public class Main  {
             }
         };
 
+        // WORK IN PROGRESS
+
+
+
+
+
+
+
+
         mainFrame.setVisible(true);
+
         mainFrame.add(mainPanel);
 
-
+        PlayMusic();
 
     }
 
@@ -56,8 +76,7 @@ public class Main  {
         int circleDiameter = 600;
         int circleX = (mainFrame.getWidth() - circleDiameter) / 2;
         int circleY = (mainFrame.getHeight() - circleDiameter) / 2 ;
-        System.out.println(circleX);
-        System.out.println(circleY);
+
 
 
         g.setColor(new Color(10,  180, 255));
@@ -70,17 +89,12 @@ public class Main  {
 
 
 
-
-
-
-
     private void ducky(int circleX, int circleY, Graphics g) {
         Random rand = new Random();
 
         int randCoordinatesX = rand.nextInt(300);
         int randCoordinatesY = rand.nextInt(300);
-        System.out.println(randCoordinatesX);
-        // System.out.println(randCoordinatesY);
+
 
 
         ImageIcon icon = new ImageIcon("C:\\Users\\josej\\IdeaProjects\\BonkLeDuck\\IMAGES\\DUCK.png");
@@ -100,15 +114,44 @@ public class Main  {
             parent.remove(Button);
             parent.revalidate();
             parent.repaint();
+            PlayBonk();
 
         });
 
 
     }
 
+    public void PlayBonk() {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("C:\\Users\\josej\\IdeaProjects\\BonkLeDuck\\Sounds\\BONK.wav").getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+        } catch(Exception ex) {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
+        }
+    }
+
+    public static void PlayMusic() {
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("C:\\Users\\josej\\IdeaProjects\\BonkLeDuck\\Sounds\\Music.wav").getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            clip.start();
+        } catch(Exception ex) {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
+        }
+    }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Main::new);
+
+
+
 
     }
 }
