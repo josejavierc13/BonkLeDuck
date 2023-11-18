@@ -9,64 +9,51 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
-
-
-
-public class Main  {
+public class Main {
     private final Image grassImage;
     public int CircleX;
     public int CircleY;
-
     public JFrame mainFrame = new JFrame();
 
-
-
-
     public Main() {
-
         mainFrame.setTitle("BONK LE DUCK");
         mainFrame.setSize(800, 800);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setResizable(false);
-        mainFrame.setBounds(500,125,800,800);
-
-
-
-
+        mainFrame.setBounds(500, 1, 800, 800);
         try {
             grassImage = ImageIO.read(new File("C:\\Users\\josej\\IdeaProjects\\BonkLeDuck\\IMAGES\\Grass_image.jpg"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        JPanel mainPanel = new JPanel() {
+        JPanel mainPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 1, 600)) {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 drawPond(g);
                 ducky(CircleX, CircleY, g);
-
-
             }
         };
 
-        // WORK IN PROGRESS
+       
 
 
 
+        ImageIcon scoreBoard = new ImageIcon("C:\\Users\\josej\\IdeaProjects\\BonkLeDuck\\IMAGES\\ScoreBoard.png");
+        JLabel ScoreLabel = new JLabel(scoreBoard);
+        mainPanel.add(ScoreLabel);
+        ScoreLabel.setSize(10,10);
 
-
-
-
+        ScoreLabel.setOpaque(true);
+        ScoreLabel.setBackground(new Color(0, 0, 0, 0));
 
         mainFrame.setVisible(true);
-
         mainFrame.add(mainPanel);
-
         PlayMusic();
-
     }
 
+    // The rest of your code remains unchanged...
 
     private void drawPond(Graphics g) {
         // Draw grass background
@@ -75,16 +62,16 @@ public class Main  {
         // Draw water in the middle as a blue circle
         int circleDiameter = 600;
         int circleX = (mainFrame.getWidth() - circleDiameter) / 2;
-        int circleY = (mainFrame.getHeight() - circleDiameter) / 2 ;
+        int circleY = (mainFrame.getHeight() - circleDiameter) / 2;
 
-
-
-        g.setColor(new Color(10,  180, 255));
+        g.setColor(new Color(10, 180, 255));
         g.fillOval(circleX, circleY, circleDiameter, circleDiameter);
 
         this.CircleX = circleX;
         this.CircleY = circleY;
     }
+
+
 
 
 
