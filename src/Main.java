@@ -15,6 +15,9 @@ public class Main {
     public int CircleY;
     public JFrame mainFrame = new JFrame();
 
+    public int Score = 0;
+    public JLabel ScoreLabel;
+
     public Main() {
         mainFrame.setTitle("BONK LE DUCK");
         mainFrame.setSize(800, 800);
@@ -27,7 +30,7 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        JPanel mainPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 1, 600)) {
+        JPanel mainPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 600)) {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -36,18 +39,21 @@ public class Main {
             }
         };
 
-       
+
+        ImageIcon icon = new ImageIcon("C:\\Users\\josej\\IdeaProjects\\BonkLeDuck\\IMAGES\\ScoreBoard.png");
+        Image image = icon.getImage(); // transform it
+        Image newImg = image.getScaledInstance(200, 150,  java.awt.Image.SCALE_SMOOTH);
+        icon = new ImageIcon(newImg);
+        JLabel ScoreBoardLabel = new JLabel(icon);
 
 
+        ScoreLabel = new JLabel(String.valueOf(Score));
+        Font labelFont = ScoreLabel.getFont();
+        ScoreLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 50));
 
-        ImageIcon scoreBoard = new ImageIcon("C:\\Users\\josej\\IdeaProjects\\BonkLeDuck\\IMAGES\\ScoreBoard.png");
-        JLabel ScoreLabel = new JLabel(scoreBoard);
+
+        mainPanel.add(ScoreBoardLabel);
         mainPanel.add(ScoreLabel);
-        ScoreLabel.setSize(10,10);
-
-        ScoreLabel.setOpaque(true);
-        ScoreLabel.setBackground(new Color(0, 0, 0, 0));
-
         mainFrame.setVisible(true);
         mainFrame.add(mainPanel);
         PlayMusic();
@@ -97,15 +103,22 @@ public class Main {
 
         Button.setBounds(randCoordinatesX + 220, randCoordinatesY + 220, 60, 80);
         Button.addActionListener(e -> {
+            updateScore(ScoreLabel);  // Call the method to update the score label
             Container parent = Button.getParent();
             parent.remove(Button);
             parent.revalidate();
             parent.repaint();
             PlayBonk();
 
+
         });
 
 
+    }
+
+    private void updateScore(JLabel scoreLabel) {
+        Score += 1;
+        ScoreLabel.setText(String.valueOf(Score));
     }
 
     public void PlayBonk() {
