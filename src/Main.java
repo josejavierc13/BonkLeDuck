@@ -15,22 +15,25 @@ public class Main {
     public int CircleY;
     public JFrame mainFrame = new JFrame();
 
-    public int Score = 0;
+    public int Score1 = 0;
+    public int Score2 = 0;
     public JLabel ScoreLabel;
+    public JLabel ScoreLabel2;
+
 
     public Main() {
         mainFrame.setTitle("BONK LE DUCK");
         mainFrame.setSize(800, 800);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setResizable(false);
-        mainFrame.setBounds(500, 1, 800, 800);
+        mainFrame.setBounds(500, 1, 850, 800);
         try {
             grassImage = ImageIO.read(new File("C:\\Users\\josej\\IdeaProjects\\BonkLeDuck\\IMAGES\\Grass_image.jpg"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        JPanel mainPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 600)) {
+        JPanel mainPanel = new JPanel(null) {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -39,21 +42,48 @@ public class Main {
             }
         };
 
-
+        /**
+         * Score Board 1
+         */
         ImageIcon icon = new ImageIcon("C:\\Users\\josej\\IdeaProjects\\BonkLeDuck\\IMAGES\\ScoreBoard.png");
-        Image image = icon.getImage(); // transform it
-        Image newImg = image.getScaledInstance(200, 150,  java.awt.Image.SCALE_SMOOTH);
+        Image image = icon.getImage();
+        Image newImg = image.getScaledInstance(200, 150, java.awt.Image.SCALE_SMOOTH);
         icon = new ImageIcon(newImg);
         JLabel ScoreBoardLabel = new JLabel(icon);
 
-
-        ScoreLabel = new JLabel(String.valueOf(Score));
+        ScoreLabel = new JLabel(String.valueOf(Score1));
         Font labelFont = ScoreLabel.getFont();
         ScoreLabel.setFont(new Font(labelFont.getName(), Font.PLAIN, 50));
 
-
-        mainPanel.add(ScoreBoardLabel);
         mainPanel.add(ScoreLabel);
+        mainPanel.add(ScoreBoardLabel);
+
+        ScoreBoardLabel.setBounds(0, 600, 200, 150);
+        ScoreLabel.setBounds(85, 650, 100, 50);
+
+        /**
+         * Score Board 2
+         */
+
+        ImageIcon icon2 = new ImageIcon("C:\\Users\\josej\\IdeaProjects\\BonkLeDuck\\IMAGES\\ScoreBoard.png");
+        Image image2 = icon2.getImage();
+        Image newImg2 = image2.getScaledInstance(200, 150, java.awt.Image.SCALE_SMOOTH);
+        icon2 = new ImageIcon(newImg2);
+        JLabel ScoreBoardLabel2 = new JLabel(icon2);
+
+        ScoreLabel2 = new JLabel(String.valueOf(Score2));
+        Font labelFont2 = ScoreLabel2.getFont();
+        ScoreLabel2.setFont(new Font(labelFont2.getName(), Font.PLAIN, 50));
+
+
+        ScoreBoardLabel2.setBounds(630, 600, 200, 150);
+        ScoreLabel2.setBounds(715, 650, 100, 50);
+
+        mainPanel.add(ScoreLabel);
+        mainPanel.add(ScoreBoardLabel);
+        mainPanel.add(ScoreLabel2);
+        mainPanel.add(ScoreBoardLabel2);
+
         mainFrame.setVisible(true);
         mainFrame.add(mainPanel);
         PlayMusic();
@@ -103,7 +133,7 @@ public class Main {
 
         Button.setBounds(randCoordinatesX + 220, randCoordinatesY + 220, 60, 80);
         Button.addActionListener(e -> {
-            updateScore(ScoreLabel);  // Call the method to update the score label
+            updateScore1(ScoreLabel);  // Call the method to update the score label
             Container parent = Button.getParent();
             parent.remove(Button);
             parent.revalidate();
@@ -116,9 +146,14 @@ public class Main {
 
     }
 
-    private void updateScore(JLabel scoreLabel) {
-        Score += 1;
-        ScoreLabel.setText(String.valueOf(Score));
+    private void updateScore1(JLabel ScoreLabel) {
+        Score1 += 1;
+        ScoreLabel.setText(String.valueOf(Score1));
+    }
+
+    private void updateScore2(JLabel ScoreLabel2) {
+        Score1 += 1;
+        ScoreLabel.setText(String.valueOf(Score1));
     }
 
     public void PlayBonk() {
