@@ -1,3 +1,5 @@
+import com.sun.tools.javac.Main;
+
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -9,19 +11,27 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 
-public class Main {
+public class ServerDuck {
     private final Image grassImage;
     public int CircleX;
     public int CircleY;
     public JFrame mainFrame = new JFrame();
 
-    public int Score1 = 0;
-    public int Score2 = 0;
+    public static int Score1 = 0;
+    public static int Score2 = 0;
+    public static int Target = 1;
     public JLabel ScoreLabel;
+    public JLabel Player1Wins;
+
     public JLabel ScoreLabel2;
 
 
-    public Main() {
+    public boolean flag2 = false;
+    public int flag1 = 0;
+
+
+    public ServerDuck() {
+
         mainFrame.setTitle("BONK LE DUCK");
         mainFrame.setSize(800, 800);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,14 +89,24 @@ public class Main {
         ScoreBoardLabel2.setBounds(630, 600, 200, 150);
         ScoreLabel2.setBounds(715, 650, 100, 50);
 
+        // ADD WINNING ANNOUNCEMENT
+        Player1Wins = new JLabel("Player 1 Wins");
+        Player1Wins.setBounds(200,200, 300,20);
+
+
         mainPanel.add(ScoreLabel);
         mainPanel.add(ScoreBoardLabel);
         mainPanel.add(ScoreLabel2);
         mainPanel.add(ScoreBoardLabel2);
 
+
         mainFrame.setVisible(true);
         mainFrame.add(mainPanel);
         PlayMusic();
+        if(flag1 == 1) {
+            System.out.println("puta");
+        }
+
     }
 
     // The rest of your code remains unchanged...
@@ -117,8 +137,6 @@ public class Main {
 
         int randCoordinatesX = rand.nextInt(300);
         int randCoordinatesY = rand.nextInt(300);
-
-
 
         ImageIcon icon = new ImageIcon("C:\\Users\\josej\\IdeaProjects\\BonkLeDuck\\IMAGES\\DUCK.png");
         Image image = icon.getImage(); // transform it
@@ -156,6 +174,8 @@ public class Main {
         ScoreLabel.setText(String.valueOf(Score1));
     }
 
+
+
     public void PlayBonk() {
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("C:\\Users\\josej\\IdeaProjects\\BonkLeDuck\\Sounds\\BONK.wav").getAbsoluteFile());
@@ -183,7 +203,8 @@ public class Main {
 
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(Main::new);
+        SwingUtilities.invokeLater(ServerDuck::new);
+
 
 
 
